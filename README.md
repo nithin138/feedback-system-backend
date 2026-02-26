@@ -1,65 +1,64 @@
-# Student Feedback and Review System
+# Student Feedback System - Backend
 
-A full-stack web application that enables students to provide anonymous feedback about courses, faculty, and facilities in a Twitter/X-like social feed format.
+Node.js/Express.js REST API for the Student Feedback System.
 
-## Features
+## Setup
 
-- 🔐 **Authentication**: Google OAuth + Email/Password with JWT
-- 👤 **Three User Roles**: Student, Faculty, Admin
-- 🎭 **Student Anonymity**: Complete identity protection
-- 💬 **Social Interactions**: Like, comment on feedback posts
-- 🚩 **Moderation System**: Faculty flagging, admin review
-- 📊 **Analytics Dashboards**: Faculty and admin insights
-- 🌓 **Light/Dark Mode**: Minimalistic, attractive design
-- 📱 **Responsive Design**: Works on all devices
-
-## Tech Stack
-
-- **Frontend**: React.js + Tailwind CSS + React Router
-- **Backend**: Node.js + Express.js
-- **Database**: MongoDB + Mongoose
-- **Authentication**: Google OAuth + JWT + bcrypt
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v16 or higher)
-- MongoDB (local or Atlas)
-- Google OAuth credentials
-
-### Installation
-
-1. Clone the repository
-2. Install all dependencies:
+1. Install dependencies:
    ```bash
-   npm run install-all
+   npm install
    ```
 
-3. Set up environment variables (see backend/.env.example and frontend/.env.example)
+2. Create `.env` file from `.env.example` and configure:
+   - MongoDB connection string
+   - JWT secret key
+   - Google OAuth credentials
+   - Admin account details
 
-4. Start the development servers:
+3. Start development server:
    ```bash
    npm run dev
    ```
 
-The backend will run on http://localhost:5000 and frontend on http://localhost:3000
+## API Endpoints
+
+### Authentication
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - Login with email/password
+- `GET /api/auth/google` - Initiate Google OAuth
+- `GET /api/auth/google/callback` - OAuth callback
+- `GET /api/auth/me` - Get current user
+- `POST /api/auth/logout` - Logout
+
+### Feedback
+- `GET /api/feedback` - Get feed (with filters)
+- `POST /api/feedback` - Create feedback post
+- `GET /api/feedback/:id` - Get specific post
+- `POST /api/feedback/:id/like` - Like post
+- `POST /api/feedback/:id/comment` - Comment on post
+- `POST /api/feedback/:id/flag` - Flag post (faculty only)
+
+### Admin
+- `GET /api/admin/faculty/pending` - Pending faculty approvals
+- `PUT /api/admin/faculty/:id/approve` - Approve faculty
+- `GET /api/admin/flags` - Flagged posts
+- `PUT /api/admin/flags/:id/dismiss` - Dismiss flag
+- `GET /api/admin/analytics` - System analytics
+
+### Analytics
+- `GET /api/analytics/faculty/:id` - Faculty analytics
+- `GET /api/analytics/export` - Export data
 
 ## Project Structure
 
 ```
-student-feedback-system/
-├── backend/          # Node.js/Express API
-├── frontend/         # React application
-└── README.md
+backend/
+├── config/          # Configuration files
+├── models/          # Mongoose schemas
+├── routes/          # API routes
+├── controllers/     # Route controllers
+├── middleware/      # Custom middleware
+├── utils/           # Utility functions
+├── server.js        # Entry point
+└── package.json
 ```
-
-## Documentation
-
-- [Requirements Document](.kiro/specs/student-feedback-system/requirements.md)
-- [Design Document](.kiro/specs/student-feedback-system/design.md)
-- [Implementation Tasks](.kiro/specs/student-feedback-system/tasks.md)
-
-## License
-
-MIT

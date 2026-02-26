@@ -2,7 +2,6 @@
 node_modules/
 
 # Environment variables
-.env
 
 # Logs
 logs
@@ -10,3 +9,4 @@ logs
 
 # Testing
 coverage/
+config.bat
